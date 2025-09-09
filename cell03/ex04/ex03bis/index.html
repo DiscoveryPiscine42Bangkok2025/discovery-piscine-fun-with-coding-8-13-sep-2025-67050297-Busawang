@@ -1,38 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>To do jQuery</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-  <button id="new">New</button>
-  <div id="ft_list"></div>
-  <script>
-    $(function(){
-      const CNAME="todo";
-      const list=$("#ft_list");
+<script>
+  $(function(){
+    const CNAME = "todo";
+    const list = $("#ft_list");
 
-      function save(){
-        const arr=list.children("div").map(function(){return $(this).text();}).get();
-        document.cookie=CNAME+"="+encodeURIComponent(JSON.stringify(arr))+";path=/";
-      }
-      function load(){
-        const m=document.cookie.match(new RegExp(CNAME+"=([^;]+)"));
-        if(m){JSON.parse(decodeURIComponent(m[1])).forEach(t=>add(t));}
-      }
-      function add(text){
-        const div=$("<div>").text(text).click(function(){
-          if(confirm("Do you really want to remove this TO DO?")){$(this).remove();save();}
-        });
-        list.prepend(div); save();
-      }
-      $("#new").click(function(){
-        const t=prompt("Enter a new TO DO");
-        if(t) add(t.trim());
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + days*24*60*60*1000);
+      document.cookie =
+        encodeURIComponent(name) + "=" + encodeURIComponent(value) +
+        ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
+    }
+
+    function getCookie(name) {
+      const pattern = new RegExp("(?:^|;\\s*)" + encodeURIComponent(name) + "=([^;]*)");
+      const m = document.cookie.match(pattern);
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+
+    function save() {
+      const arr = list.children("div").map(function(){ return $(this).text(); }).get();
+      setCookie(CNAME, JSON.stringify(arr), 365); // persist 1 year
+    }
+
+    function add(text, doSave = true) {
+      const div = $("<div>").text(text).on("click", function(){
+        if (confirm("Do you really want to remove this TO DO?")) {
+          $(this).remove(); save();
+        }
       });
-      load();
+      list.prepend(div);
+      if (doSave) save();
+    }
+
+    function load() {
+      const raw = getCookie(CNAME);
+      if (!raw) return;
+      try {
+        const items = JSON.parse(raw);
+        items.forEach(t => add(t, false)); // rebuild without re-saving each
+      } catch(_) { /* ignore bad cookie */ }
+    }
+
+    $("#new").on("click", function(){
+      const t = prompt("Enter a new TO DO");
+      if (!t) return;
+      const s = t.trim();
+      if (s) add(s);
     });
-  </script>
-</body>
-</html>
+
+    load();
+  });
+</script>
