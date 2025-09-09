@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To do jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <button id="new">New</button>
+  <div id="ft_list"></div>
+  <script>
+    $(function(){
+      const CNAME="todo";
+      const list=$("#ft_list");
+
+      function save(){
+        const arr=list.children("div").map(function(){return $(this).text();}).get();
+        document.cookie=CNAME+"="+encodeURIComponent(JSON.stringify(arr))+";path=/";
+      }
+      function load(){
+        const m=document.cookie.match(new RegExp(CNAME+"=([^;]+)"));
+        if(m){JSON.parse(decodeURIComponent(m[1])).forEach(t=>add(t));}
+      }
+      function add(text){
+        const div=$("<div>").text(text).click(function(){
+          if(confirm("Do you really want to remove this TO DO?")){$(this).remove();save();}
+        });
+        list.prepend(div); save();
+      }
+      $("#new").click(function(){
+        const t=prompt("Enter a new TO DO");
+        if(t) add(t.trim());
+      });
+      load();
+    });
+  </script>
+</body>
+</html>
