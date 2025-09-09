@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Dropdown</title>
+  <link rel="stylesheet" href="menu.css" />
+</head>
+<body>
+  <nav class="site">
+    <div class="dropdown">
+      <input id="dd1" class="dd-toggle" type="checkbox" aria-hidden="true" />
+      <label for="dd1" class="dd-btn" role="button" aria-haspopup="true" aria-controls="menu1">
+        Sandwich options
+      </label>
+
+      <ul id="menu1" class="dd-menu" role="menu" aria-label="Sandwich options">
+        <li role="menuitem"><a href="#">Bread</a></li>
+        <li role="menuitem"><a href="#">Ham</a></li>
+        <li role="menuitem"><a href="#">Cheese</a></li>
+        <li role="menuitem"><a href="#">Lettuce</a></li>
+      </ul>
+    </div>
+  </nav>
+</body>
+</html>

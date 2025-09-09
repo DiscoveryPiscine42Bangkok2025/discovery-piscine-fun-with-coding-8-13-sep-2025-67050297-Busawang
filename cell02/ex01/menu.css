@@ -1,0 +1,87 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: system-ui, Arial, sans-serif;
+  display: grid;
+  place-items: center;                 
+  padding: 24px;
+  background: #f7f7f8;
+}
+.dropdown {
+  position: relative;
+  width: clamp(220px, 40vw, 360px);
+}
+
+.dd-toggle {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Button */
+.dd-btn {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #444;
+  border-radius: 14px;
+  background: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+}
+.dd-btn::after {
+  content: "▾";
+  transition: transform 150ms ease;
+}
+.dd-menu {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 8px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border: 2px solid #444;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  transform: translateY(-6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 150ms ease, opacity 150ms ease;
+  z-index: 10;
+}
+.dd-menu li a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #222;
+}
+.dd-menu li a:hover,
+.dd-menu li a:focus {
+  background: #f0f3d8;   
+  outline: none;
+}
+.dd-toggle:checked + .dd-btn + .dd-menu {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.dd-toggle:checked + .dd-btn::after {
+  transform: rotate(180deg);
+}
+
+.dropdown:focus-within .dd-menu {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (max-width: 520px) {
+  .dropdown { width: 100%; }
+  body { padding: 16px; }
+}

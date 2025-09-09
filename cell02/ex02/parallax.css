@@ -1,0 +1,52 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.parallax {
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img1 {
+  background-image: url("https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg");
+}
+
+.img2 {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg");
+}
+
+.caption span {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 20px 40px;
+  font-size: 2em;
+  border-radius: 12px;
+}
+
+.text-block {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+}
+.text-block h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+.text-block p {
+  font-size: 1.2em;
+}

@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.wrap {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #555;
+}
+
+td {
+  width: 50%;
+  height: 120px;
+  padding: 16px;
+  vertical-align: middle;
+  color: #333;
+  border-left: 2px solid #555;
+}
+
+/* First cell background */
+td:first-child {
+  border-left: none;
+  background: #b8c27a; /* greenish */
+}
+
+/* Second cell background */
+td:last-child {
+  background: #f6b4a8; /* peach */
+}

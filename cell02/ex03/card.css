@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  background: #f0f0f0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  width: 320px;
+  text-align: center;
+}
+
+.card h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.card table {
+  width: 100%;
+  border-collapse: collapse;  /* invisible table */
+}
+
+.profile-pic img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #555;
+}
+
+.login {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.desc {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.social img {
+  width: 32px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.btn-cell {
+  padding-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #4CAF50;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #45a049;
+}
