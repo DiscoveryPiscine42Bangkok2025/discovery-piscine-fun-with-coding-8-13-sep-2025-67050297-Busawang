@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Change Background</title>
+  <link rel="stylesheet" href="backgroound.css" />
+</head>
+<body>
+  <button id="changer">Change background</button>
+
+  <script>
+    // Generate a readable random color (HSL keeps it vibrant)
+    function randomHSL() {
+      var h = Math.floor(Math.random() * 360);      // 0–359
+      var s = 70 + Math.floor(Math.random() * 30);  // 70–99%
+      var l = 50;                                    // fixed 50% for punchy color
+      return "hsl(" + h + " " + s + "% " + l + "%)";
+    }
+
+    // Simple contrast: swap text color based on background lightness (approx via HSL->text choice)
+    function textColorFor(hsl) {
+      // crude parse: "hsl(h s% l%)"
+      var parts = hsl.match(/hsl\(\s*(\d+)\s+(\d+)%\s+(\d+)%\s*\)/);
+      var l = parts ? parseInt(parts[3], 10) : 50;
+      return l > 55 ? "#111" : "#fff";
+    }
+
+    var btn = document.getElementById("changer");
+    btn.addEventListener("click", function () {
+      var bg = randomHSL();
+      document.body.style.backgroundColor = bg;
+      document.body.style.color = textColorFor(bg);
+    });
+  </script>
+</body>
+</html>

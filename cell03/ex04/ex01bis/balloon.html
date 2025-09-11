@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3.4.1bis</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    :root { --min: 200; --max: 420; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid; place-items: center;
+      background: #f5f7fb; font-family: system-ui, Arial, sans-serif;
+    }
+    #balloon {
+      width: 200px; height: 200px; border-radius: 50%;
+      background: red; box-shadow: 0 10px 25px rgba(0,0,0,.15);
+      cursor: pointer; user-select: none;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    #balloon:active { transform: scale(0.98); box-shadow: 0 6px 18px rgba(0,0,0,.2); }
+    .hint { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); color:#666; font-size:14px; }
+  </style>
+</head>
+<body>
+
+  <div id="balloon" aria-label="Balloon" role="button" title="Click to grow; move mouse out to shrink"></div>
+
+  <script>
+    $(function () {
+      const $b = $('#balloon');
+      const colors = ['red', 'green', 'blue'];
+
+      
+      let size = 200;       
+      let idx  = 0;       
+      let inside = false;
+
+      function paint() {
+        $b.css({
+          width:  size + 'px',
+          height: size + 'px',
+          backgroundColor: colors[idx]
+        });
+      }
+      function nextColor() { idx = (idx + 1) % colors.length; }
+      function prevColor() { idx = (idx - 1 + colors.length) % colors.length; }
+
+      $b.on('click', function () {
+        size += 10;
+        nextColor();
+        if (size > 420) {
+          size = 200;
+          idx  = 0; 
+        }
+        paint();
+      });
+
+      $b.on('mouseenter', function () { inside = true; });
+      $b.on('mouseleave', function () {
+        if (!inside) return;
+        inside = false;
+        size = Math.max(200, size - 5);
+        prevColor();
+        paint();
+      });
+
+      paint(); 
+    });
+  </script>
+</body>
+</html>

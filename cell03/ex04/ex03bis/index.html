@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>3.4.3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 0; background:#f6f7fb; }
+    #newBtn {
+      padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;
+    }
+    main { max-width: 720px; margin: 24px auto; padding: 0 16px; }
+    #ft_list {
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding: 8px;
+      min-height: 120px; box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+    .todo {
+      padding: 12px 14px; margin: 8px; border:1px solid #e5e7eb; border-radius: 10px;
+      background:#fafafa; cursor: pointer; user-select: none;
+    }
+    .empty { color:#6b7280; text-align:center; margin: 24px 0; }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <header>
+    <button id="newBtn" type="button">New</button>
+  </header>
+
+  <main>
+    <div id="ft_list" aria-live="polite"></div>
+    <p id="emptyMsg" class="empty" hidden></p>
+  </main>
+
+  <script src="todo.js"></script>
+</body>
+</html>

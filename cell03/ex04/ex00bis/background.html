@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>3.4.0bis</title>
+  <link rel="stylesheet" href="backgroound.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <button id="changer">Change background</button>
+
+  <script>
+    function randomHSL() {
+      var h = Math.floor(Math.random() * 360);
+      var s = 70 + Math.floor(Math.random() * 30);
+      var l = 50;
+      return "hsl(" + h + " " + s + "% " + l + "%)";
+    }
+
+    function textColorFor(hsl) {
+      var parts = hsl.match(/hsl\(\s*(\d+)\s+(\d+)%\s+(\d+)%\s*\)/);
+      var l = parts ? parseInt(parts[3], 10) : 50;
+      return l > 55 ? "#111" : "#fff";
+    }
+    $(function() {
+      $("#changer").on("click", function () {
+        var bg = randomHSL();
+        $("body").css("background-color", bg)
+                 .css("color", textColorFor(bg));
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>It’s over 9000 — Calculator (jQuery)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 40px; }
+    form { display: inline-flex; gap: 8px; align-items: center; }
+    input, select, button { padding: 8px 10px; font-size: 16px; }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <form id="calc" aria-label="Basic calculator">
+    <input id="left" type="text" placeholder="Left (>= 0)" aria-label="Left value" />
+    <select id="op" aria-label="Operator">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+      <option value="%">%</option>
+    </select>
+    <input id="right" type="text" placeholder="Right (>= 0)" aria-label="Right value" />
+    <button type="submit">Try me!</button>
+  </form>
+
+  <script>
+    setInterval(function () {
+      alert("Please, use me...");
+    }, 30000);
+
+    $(function () {
+      const re = /^\d+$/;
+
+      $("#calc").on("submit", function (e) {
+        e.preventDefault(); 
+
+        const aStr = $("#left").val().trim();
+        const bStr = $("#right").val().trim();
+        const op   = $("#op").val();
+
+        if (!re.test(aStr) || !re.test(bStr)) {
+          alert("Error :(");
+          return;
+        }
+
+        const a = parseInt(aStr, 10);
+        const b = parseInt(bStr, 10);
+
+        if ((op === "/" || op === "%") && b === 0) {
+          console.log("It's over 9000!");
+          alert("It's over 9000!");
+          return;
+        }
+
+        let result;
+        switch (op) {
+          case "+": result = a + b; break;
+          case "-": result = a - b; break;
+          case "*": result = a * b; break;
+          case "/": result = a / b; break; 
+          case "%": result = a % b; break;
+          default:
+            alert("Error :(");
+            return;
+        }
+
+        console.log(result);
+        alert(result);
+      });
+    });
+  </script>
+</body>
+</html>
