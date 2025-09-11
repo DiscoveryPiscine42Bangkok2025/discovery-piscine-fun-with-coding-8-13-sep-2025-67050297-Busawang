@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Balloon</title>
-  <link rel="stylesheet" href="balloon.css">
+  <meta charset="UTF-8" />
+  <style>
+    :root {
+      --min: 200;
+      --max: 420;
+    }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      background: #f5f7fb;
+      font-family: system-ui, Arial, sans-serif;
+    }
+    #balloon {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: red;
+      box-shadow: 0 10px 25px rgba(0,0,0,.15);
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+      user-select: none;
+    }
+    #balloon:active { transform: scale(0.98); box-shadow: 0 6px 18px rgba(0,0,0,.2); }
+    .hint { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); color:#666; font-size:14px; }
+  </style>
 </head>
 <body>
-  <div id="balloon"></div>
-  <script src="balloon.js"></script>
+
+  <div id="balloon" aria-label="Balloon" role="button" title="Click to grow; move mouse out to shrink"></div>
+
+  <script>
+    (function () {
+      const balloon = document.getElementById('balloon');
+      const colors = ['red', 'green', 'blue'];
+      let colorIndex = 0;
+      let size = 200;
+
+      function apply() {
+        balloon.style.width = size + 'px';
+        balloon.style.height = size + 'px';
+        balloon.style.backgroundColor = colors[colorIndex];
+      }
+
+      function nextColor() {
+        colorIndex = (colorIndex + 1) % colors.length;
+      }
+      function prevColor() {
+        colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+      }
+      balloon.addEventListener('click', () => {
+        size += 10;
+        nextColor();
+        if (size > 420) {
+          size = 200;
+          colorIndex = 0;
+        }
+        apply();
+      });
+
+      let isInside = false;
+      balloon.addEventListener('mouseenter', () => { isInside = true; });
+      balloon.addEventListener('mouseleave', () => {
+        if (!isInside) return;
+        isInside = false;
+        size = Math.max(200, size - 5);
+        prevColor();
+        apply();
+      });
+      apply();
+    })();
+  </script>
 </body>
 </html>
